@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web
+  labels:
+    app: web
+spec:
+  containers:
+    - name: web
+      image: darkdance/web
+      volumeMounts:
+        - name: app
+          mountPath: /app
+  initContainers:
+    - name: index 
+      image: busybox
+      command: ['sh', '-c', 'wget -O- https://tinyurl.com/otus-k8s-intro | sh -x']
+      volumeMounts:
+        - name: app
+          mountPath: /app
+  volumes:
+    - name: app
+      emptyDir: {}
