@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: kube-proxy
+  name: kube-proxy
+spec:
+  selector:
+    matchLabels:
+      app: kube-proxy
+  template:
+    metadate:
+      labeles:
+        app: kube-proxy
+    spec:
+      containers:
+        image: kube-proxy:1.26.0
+        imagePullPolicy: IfNotPresent
+        name: kube-proxy
+        resources: {}
+      dnsPolicy: ClusterFirst
+      hostNetwork: true
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+      - operator: Exists
+status: {}
